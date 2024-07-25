@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto</title>
+</head>
+<body>
+  <div id="producto">
+    <!-- Información del producto aquí -->
+  </div>
+  <div id="productos-similares">
+    <h3>Productos Similares</h3>
+    <div id="lista-productos-similares">
+      <!-- Los productos similares se agregarán aquí -->
+    </div>
+  </div>
+  
+  <script>
+    // Función para obtener productos similares
+    async function obtenerProductosSimilares(productoId) {
+      try {
+        const response = await fetch(`/api/productos-similares/${productoId}`);
+        const productosSimilares = await response.json();
+
+        const contenedor = document.getElementById('lista-productos-similares');
+        productosSimilares.forEach(producto => {
+          const productoDiv = document.createElement('div');
+          productoDiv.innerText = producto.nombre;
+          contenedor.appendChild(productoDiv);
+        });
+      } catch (error) {
+        console.error('Error al obtener productos similares:', error);
+      }
+    }
+
+    // Obtener el ID del producto actual (por ejemplo, desde la URL)
+    const productoId = 1; // Reemplaza con la lógica para obtener el ID del producto actual
+    obtenerProductosSimilares(productoId);
+  </script>
+</body>
+</html>
